@@ -1,0 +1,15 @@
+body {
+    background-image: url('./assets/people.jpg');
+    background-size: cover; /* Asegura que la imagen cubra todo el fondo */
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh; /* Asegura que el fondo cubra toda la pantalla */
+    margin: 0; /* Elimina el margen por defecto del body */
+    display: flex; /* Permite centrar el contenido */
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+}
+
+.bg-white {
+    background-color: rgba(255, 255, 255, 0.8); /* Añadir transparencia si lo deseas */
+}

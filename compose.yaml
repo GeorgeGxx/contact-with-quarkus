@@ -1,0 +1,40 @@
+services:
+  db:
+    container_name: db
+    image: "postgres:${POSTGRES_VERSION}"
+    restart: unless-stopped
+    ports:
+      - "15432:${POSTGRES_PORT}"
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_HOST: ${POSTGRES_HOST}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - my-network
+
+  app:
+    container_name: app
+    build:
+      context: .
+      dockerfile: Dockerfile.native-micro
+    restart: unless-stopped
+    ports:
+      - ${PORT_APP}:${PORT_APP}
+    env_file:
+      - .env
+    environment:
+      JAVA_OPTS: "${QUARKUS_JAVA_OPTS}"
+    depends_on:
+      - db
+    networks:
+      - my-network
+
+volumes:
+  pgdata:
+
+networks:
+  my-network:
+    driver: bridge
